@@ -13,10 +13,10 @@ import keyword
 import os
 import locale
 from Print import TextDocPrintout
-from stcSpell import STCSpellCheck
+from Spell import STCSpellCheck
 import sys
 
-# Font face data depending on OS
+# Different Font face data depending on OS
 if wx.Platform == '__WXMSW__':
     faces = { 'times': 'Times New Roman',
               'mono' : 'Courier New',
@@ -70,14 +70,14 @@ class MainWindow(wx.Frame):
 		self.control.SetMarginWidth(1, self.leftMarginWidth) # width of line numbers column
 
 
-		# new code font 2517
+		# font code
 		self.currentFont = self.control.GetFont()
 		self.currentColor = wx.BLACK
 		
 		self.finddata = wx.FindReplaceData()
 		self.findreplacedlg = None
 
-		#new 1728
+		#
 		self.Bind(wx.stc.EVT_STC_MODIFIED, self.OnModified)
             	self.Bind(wx.EVT_IDLE, self.OnIdle)
             	self.modified_count = 0
@@ -128,19 +128,14 @@ class MainWindow(wx.Frame):
 		helpmenu.AppendSeparator()
 		menuAbout = helpmenu.Append(wx.ID_ABOUT, "&About", " Read about the text editor and it's making")
 
-		# new code font menu 130117
+		# new code font menu
 		view = wx.Menu()
 		menuFont = view.Append(wx.ID_ANY, "&Font", "Choose Font")
-		#menuFind = view.Append(wx.ID_ANY, "&Find", "Find...")	#new 0212
 		
 		menuFind = view.Append(wx.ID_FIND, "Find...")
 		menuReplace = view.Append(wx.ID_REPLACE, "Replace")
-		
-		# new code lan repub17
 		langMenu =wx.Menu()
 
-		
-		
 		# Creating menubar
 		menuBar = wx.MenuBar()
 		menuBar.Append(filemenu, "&File")
@@ -149,8 +144,6 @@ class MainWindow(wx.Frame):
 		menuBar.Append(view, "&View")	# new code 130117
 		menuBar.Append(langMenu, "&Languages")
 		menuBar.Append(helpmenu, "&Help")
-		
-		#menuBar.Append(lang, "Languages")
 		self.SetMenuBar(menuBar)
 
 		# File event
@@ -159,8 +152,6 @@ class MainWindow(wx.Frame):
 		self.Bind(wx.EVT_MENU, self.OnSave, menuSave)
 		self.Bind(wx.EVT_MENU, self.OnSaveAs, menuSaveAs)
 		self.Bind(wx.EVT_MENU, self.OnPageSetup, pageSetupMenu)
-		#self.Bind(wx.EVT_MENU, self.OnPrintSetup, printSetupMenu)
-		#self.Bind(wx.EVT_MENU, self.OnPrintPreview, printPreviewMenu)
 		self.Bind(wx.EVT_MENU, self.OnPrint, printMenu)
 		self.Bind(wx.EVT_MENU, self.OnClose, menuClose)
 
@@ -203,8 +194,6 @@ class MainWindow(wx.Frame):
 			id = wx.NewId()
 			self.lang_id = lang
 			self.menuAdd(langMenu, lang, "Change Dictionary to %s" %lang, self.OnChangeLanguage, id=id)
-
-		# display application
 		self.Show()
 
 		
@@ -322,12 +311,10 @@ class MainWindow(wx.Frame):
 
 	# Left mouse up
 	def OnLeftUp(self, e):
-		# This way if you click on another position in the text box
-		# it will update the line/col number in the status bar (like it should)
 		self.UpdateLineCol(self)
 		e.Skip()
 
-	# New Code Font Font Fuction
+	# Font Fuction
 	def OnFont(self, e):
 		data = wx.FontData()
 		data.EnableEffects(True)
@@ -412,10 +399,6 @@ class MainWindow(wx.Frame):
 			return True
 		return False
 	
-	
-	
-	
-	
 	# Char event
 	def OnCharEvent(self, e):
 		keycode = e.GetKeyCode()
@@ -440,7 +423,6 @@ class MainWindow(wx.Frame):
 			e.Skip()
 	
 	
-	# new code 172201
 	def OnClearSelection(self, evt):
 		evt.Skip()
 		wx.CallAfter(self.control.SetInsertionPoint,
