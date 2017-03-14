@@ -7,5 +7,5 @@ My Py is a Simple Python Text Editor and fully customizable.
 <li>Change Fonts</li>
 <li>Various Language Syntax Highlighting</li>
 
-#Contact
+# Contact
 For the full source code please contact.
