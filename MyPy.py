@@ -14,6 +14,9 @@ import os
 import locale
 from Print import TextDocPrintout
 from Spell import STCSpellCheck
+from LangSyntax import LangSyntax
+from xml.dom.minidom import parse
+import xml.dom.minidom
 import sys
 
 # Different Font face data depending on OS
@@ -135,6 +138,11 @@ class MainWindow(wx.Frame):
 		menuFind = view.Append(wx.ID_FIND, "Find...")
 		menuReplace = view.Append(wx.ID_REPLACE, "Replace")
 		langMenu =wx.Menu()
+		
+		syntaxMenu = wx.Menu()
+		cppSyntaxMenu = syntaxMenu.Append(wx.ID_ANY, "&C++" , "C++ Syntax")
+		pythonSyntaxMenu = syntaxMenu.Append(wx.ID_ANY, "&Python" , "Python Syntax")
+		perlSyntaxMenu = syntaxMenu.Append(wx.ID_ANY, "&Perl", "perl Syntax")
 
 		# Creating menubar
 		menuBar = wx.MenuBar()
@@ -186,6 +194,10 @@ class MainWindow(wx.Frame):
 		self.control.Bind(wx.EVT_CHAR, self.OnCharEvent)
 		self.control.Bind(wx.EVT_KEY_UP, self.UpdateLineCol)
 		self.control.Bind(wx.EVT_LEFT_UP, self.OnLeftUp)
+		
+		self.Bind(wx.EVT_MENU, self.control.syntax.OnPythonSyntax, pythonSyntaxMenu)
+		self.Bind(wx.EVT_MENU, self.control.syntax.OnPerlSyntax, perlSyntaxMenu)
+		self.Bind(wx.EVT_MENU, self.control.syntax.OnCppSyntax, cppSyntaxMenu)
 
 		# new 1728
 		langs = self.control.spell.getAvailableLanguages()
