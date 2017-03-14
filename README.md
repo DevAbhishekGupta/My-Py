@@ -1,5 +1,5 @@
 # My-Py
-My Py is a Simple Python Text Editor and fully customizable.
+My Py is a Simple Editor and fully customizable.
 # Features
 <li>Print the file</li>
 <li>Highlight misspelled word</li>
