@@ -1,3 +1,9 @@
+###
+#	Abhishek Gupta
+#	My Py
+#	Version Beta
+###
+
 import wx
 import wx.lib.dialogs
 import wx.stc as stc
